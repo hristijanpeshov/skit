@@ -1,0 +1,99 @@
+<div class="container">
+    <div class="row mb-2">
+        <div class="col-11"><h2>Annual Visitor Count Statistics</h2></div>
+        <div class="col-1">
+            <select id="selectYearVisitor" onchange="updateBarChartVisitor()">
+                <option th:each="year : ${#numbers.sequence(#dates.year(#dates.createNow()),2015,-1)}" th:value="${year}" th:text="${year}" th:selected="${year==#dates.year(#dates.createNow())-1}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 centered">
+            <canvas id="myBarChartVisitors" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    let user1 = undefined;
+    function updateBarChartVisitor(username){
+
+        let year = document.getElementById("selectYearVisitor").value
+
+        let url = "/api/data/visitors/"+year;
+
+        if(username!=undefined)
+        {
+            user1 = username
+        }
+        if(user1!=undefined)
+        {
+            url += ("?username="+user1)
+        }
+
+        d3.json(url, function(data) {
+
+            let canvas = document.getElementById("myBarChartVisitors")
+            let canvasParent = canvas.parentNode
+            canvasParent.removeChild(canvas);
+            canvas = document.createElement("canvas")
+            canvas.setAttribute("id","myBarChartVisitors")
+            canvas.setAttribute("height","100")
+            canvasParent.appendChild(canvas)
+
+            let months = data.map(function(d){
+                return d["Month"];
+            })
+
+            let labels = Object.keys(data[0])
+            labels = labels.filter(word=>word != "Month")
+
+
+            let myDatasets = []
+
+            labels.forEach(createDataSets)
+
+            function createDataSets(item,index){
+                let itemData = data.map(function (d){
+                    return parseInt(d[item], 10);
+                })
+                let label = item.toString().slice(0,item.toString().lastIndexOf(" "))
+                myDatasets.push({label:label,data:itemData,backgroundColor: getRandomColor()})
+            }
+
+            function getRandomColor() {
+                let letters = '0123456789ABCDEF';
+                let color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            let finalData = {
+                labels : months,
+                datasets: myDatasets
+            }
+
+            var ctx = document.getElementById("myBarChartVisitors")
+            chart = new Chart(ctx, {
+                type: 'bar',
+                data: finalData,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            stacked: true
+                        }],
+                        xAxes: [{
+                            stacked: true,
+                        }]
+                    }
+                }
+            });
+        })
+    }
+    $( document ).ready(function(){
+        updateBarChartVisitor()
+    })
+
+</script>

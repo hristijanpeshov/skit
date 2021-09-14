@@ -1,0 +1,93 @@
+<div class="breadcrumb-option set-bg"
+     data-setbg="/assets/room.png" style="background-image: url('/assets/room.png');"
+     xmlns:th="http://www.thymeleaf.org" xmlns:pth="http://www.w3.org/1999/html">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h1>My Listings</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section id="listings" class="spad" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <a class="btn primary-btn delete-btn mt-2 d-block" href="/accommodation/add">Add accommodation</a>
+            </div>
+        </div>
+        <div th:each="resObject : ${resObjects}" class="row hoverable-unit border-bottom border-top py-2" th:data-id="'TUKA STAVI ID OD UNIT'" th:data-res="${resObject.getId()}" onclick="redirectToUnit(this)">
+            <div class="row my-2 mb-2">
+                <div class="col-lg-3 p-0 order-lg-1 order-md-1 col-md-3 px-3">
+                    <img th:src="${resObject.getObjectImages().get(0)}">
+                </div>
+                <div class="col-lg-6 p-0 order-lg-2 order-md-2 col-md-6 px-2">
+                    <!--                    <h5 class="font-weight-light" th:text="${#temporals.format(reservation.getReservationDate(), 'dd-MM-yyyy HH:mm')}">Placeholder text</h5>-->
+                    <h5 th:text="${resObject.getCategory()}" class="font-weight-light">Placeholder text</h5>
+                    <h4 th:text="${resObject.getName()}">Name</h4>
+                    <p th:text="${resObject.getDescription()}">Description</p>
+                </div>
+                <div class="col-lg-3 p-0 order-lg-3 order-md-3 col-md-3">
+                    <a th:href="'/accommodation/' + ${resObject.getId()} + '/unit/add'" class="btn primary-btn mb-2 d-block">Add Unit</a>
+                    <a th:href="'/accommodation/edit/' + ${resObject.getId()}" class="btn primary-btn d-block">Edit</a>
+                    <form method="post" th:action="'/accommodation/delete/' + ${resObject.getId()}" style="width: 100%">
+                        <button style="width: 100%" type="button" class="btn primary-btn delete-btn mt-2 d-block" onclick="deleteAlert(this)">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="confirm" class="modal">
+        <div class="modal-body">
+            Are you sure?
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 centered">
+                <canvas id="myChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+
+</section>
+<script src="/js/bootbox.min.js"></script>
+<script>
+    function redirectToUnit(unit){
+        //var unitId = $(unit).data('id');
+        var resId = $(unit).data('res');
+        //console.log(unitId);
+        console.log(resId);
+        window.location = '/accommodation/' + resId;
+        //+ '/unit/' + unitId;
+    }
+
+    function deleteAlert(deleteBtn){
+        event.stopImmediatePropagation();
+        bootbox.dialog({
+            message: "Are you sure you want to delete this?",
+            centerVertical: true,
+            buttons: {
+                confirm: {
+                    label: 'Yes',
+                    className: 'btn-success',
+                    callback: function(){
+                        var $form = $(deleteBtn).parent('form');
+                        $form.trigger('submit');
+                    }
+                },
+                cancel: {
+                    label: 'No',
+                    className: 'btn-danger'
+                }
+            }
+        });
+
+    }
+</script>

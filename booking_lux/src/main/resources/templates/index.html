@@ -1,0 +1,90 @@
+<section class="hero spad set-bg" data-setbg="assets/hotel4.jpg" style="background-image: url('assets/hotel4.jpg');"
+         xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__text">
+                    <h4>WELCOME TO HVT BOOKING LUX</h4>
+                    <h2>Experience the foreign like you're at home.</h2>
+                </div>
+                <th:block th:include="${searchForm}"></th:block>
+                <p class="text-danger font-weight-bold" th:text="${hasError != null ? error : ''}"></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="home-about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="home__about__text">
+                    <div class="section-title">
+                        <h5>ABOUT US</h5>
+                        <h2>Welcome to HVT Booking LUX</h2>
+                    </div>
+                    <p class="first-para">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+                        fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                    <p class="last-para">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                        doloremque.</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="home__about__pic">
+                    <img src="/assets/home-about.png" alt="" style="max-width: 20vh">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="home-room spad" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h5>OUR OPTIONS</h5>
+                    <h2>Explore Our Accommodations</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 p-0" th:if="${leastExpensive} != null">
+                <div class="home__room__item set-bg" data-setbg="/assets/hr-1.png" style="background-image: url('/assets/hr-1.png');">
+                    <div class="home__room__title">
+                        <h4>Cheapest Room</h4>
+                        <h2 th:utext="('<sup>$</sup>' + ${leastExpensive.getPrice()} + '<span>/day</span>')"></h2>
+                    </div>
+                    <a th:href="'/accommodation/' + ${leastExpensive.getResObject().getId()} + '/unit/' + ${leastExpensive.getId()}">More Details</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 p-0" th:if="${mostExpensive} != null">
+                <div class="home__room__item set-bg" data-setbg="/assets/hr-2.png" style="background-image: url('/assets/hr-2.png');">
+                    <div class="home__room__title">
+                        <h4>The Most Expensive Room</h4>
+                        <h2 th:utext="('<sup>$</sup>' + ${mostExpensive.getPrice()} + '<span>/day</span>')"></h2>
+                    </div>
+                    <a th:href="'/accommodation/' + ${mostExpensive.getResObject().getId()} + '/unit/' + ${mostExpensive.getId()}">More Details</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 p-0" th:if="${smallest} != null">
+                <div class="home__room__item set-bg" data-setbg="/assets/hr-3.png" style="background-image: url('/assets/hr-3.png');">
+                    <div class="home__room__title">
+                        <h4>Smallest Room</h4>
+                        <h2 th:utext="('<sup>$</sup>' + ${smallest.getPrice()} + '<span>/day</span>')"></h2>
+                    </div>
+                    <a th:href="'/accommodation/' +  ${smallest.getResObject().getId()} + '/unit/' + ${smallest.getId()}">More Details</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 p-0" th:if="${largest} != null">
+                <div class="home__room__item set-bg" data-setbg="/assets/hr-4.png" style="background-image: url('/assets/hr-4.png');">
+                    <div class="home__room__title">
+                        <h4>Largest Room</h4>
+                        <h2 th:utext="('<sup>$</sup>' + ${largest.getPrice()} + '<span>/day</span>')"></h2>
+                    </div>
+                    <a th:href="'/accommodation/' +  ${largest.getResObject().getId()} + '/unit/' + ${largest.getId()}">More Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

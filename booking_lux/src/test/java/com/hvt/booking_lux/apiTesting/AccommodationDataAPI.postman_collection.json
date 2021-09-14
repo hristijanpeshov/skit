@@ -1,0 +1,1193 @@
+{
+	"info": {
+		"_postman_id": "f84799d0-58f2-45a8-a490-e6b482ed4832",
+		"name": "AccommodationDataAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin@admin.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Income for 2021",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"2010\",\r",
+							"        \"House in Belgrade 2\": \"3000\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2021?username=user@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2021"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Income for year with no data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2016?username=user@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2016"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Visitors for 2021",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse = [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"3\",\r",
+							"        \"House in Belgrade 2\": \"1\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"1\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/visitors/2021?username=user@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"visitors",
+						"2021"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Visitors for year with no data",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse = [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/visitors/2016?username=user@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"visitors",
+						"2016"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Income - Username not sent - Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2021",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Visitors - Username not sent - Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2021",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login With Another User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "user@user.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Income - Username not sent",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"2010\",\r",
+							"        \"House in Belgrade 2\": \"3000\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2021",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2021"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Income - Not Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse =\r",
+							"    [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"1500\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"4800\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/income/2020?username=user2@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"income",
+						"2020"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user2@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Visitors for year - Username not sent",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse = [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/visitors/2016?username=user@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"visitors",
+						"2016"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Annual Visitors for year - Not Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const expectedResponse = [\r",
+							"    {\r",
+							"        \"Month\": \"January\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"February\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"March\",\r",
+							"        \"Hotel Makedonija 1\": \"1\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"April\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"May\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"June\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"July\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"August\",\r",
+							"        \"Hotel Makedonija 1\": \"1\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"September\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"October\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"November\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    },\r",
+							"    {\r",
+							"        \"Month\": \"December\",\r",
+							"        \"Hotel Makedonija 1\": \"0\",\r",
+							"        \"House in Belgrade 2\": \"0\"\r",
+							"    }\r",
+							"];\r",
+							"\r",
+							"pm.globals.set(\"expectedResponse\", expectedResponse);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"STATUS SUCCESS\", () => pm.response.to.be.success);\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"const expectedResponse = pm.globals.get(\"expectedResponse\");\r",
+							"\r",
+							"pm.test(\"EXPECTED RESPONSE\", () => {\r",
+							"    pm.expect(jsonData).to.have.deep.members(expectedResponse);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/data/visitors/2020?username=user3@user.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"data",
+						"visitors",
+						"2020"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "user3@user.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

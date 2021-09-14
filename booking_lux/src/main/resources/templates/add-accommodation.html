@@ -1,0 +1,148 @@
+<div class="breadcrumb-option set-bg"
+     data-setbg="/assets/room.png" style="background-image: url('/assets/room.png');" xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h1 th:if="${edit}==false">Add Accommodation</h1>
+                    <h1 th:if="${edit}==true">Edit Accommodation</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="add-accommodation spad">
+    <div class="container">
+        <form method="post" id="contactForm" class="contact__form" name="contactForm" th:action="(${edit}==true? '/accommodation/edit/' + ${reservationObject.getId()} : '/accommodation/add')" xmlns:th="http://www.thymeleaf.org">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input id="name"
+                               class="form-control"
+                               type="text"
+                               name="name"
+                               th:value="(${reservationObject}!=null? ${reservationObject.getName()}:'')"
+                               placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input id="address"
+                               class="form-control"
+                               type="text"
+                               name="address"
+                               th:value="(${reservationObject}!=null? ${reservationObject.getAddress()}:'')"
+                               placeholder="Address" required>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <textarea id="description"
+                                  class="form-control"
+                                  name="description"
+                                  cols="30"
+                                  rows="4"
+                                  th:text="(${reservationObject}!=null? ${reservationObject.getDescription()}:'')"
+                                  placeholder="Description" required></textarea>
+                    </div>
+                </div>
+                <div id="imageParent">
+                    <div class="row pl-1 mb-3" th:if="${reservationObject==null}">
+                        <div class="col-md-10">
+                            <input class="form-control"
+                                   name="images"
+                                   placeholder="Image URL" required>
+                        </div>
+                        <div class="col-md-1 col-lg-1 my-auto text-center">
+                            <button class="btn-round fa fa-minus" style="background-color: red" type="button" onclick="removeField(this)"></button>
+                        </div>
+                    </div>
+                    <div class="row pl-1 mb-3" th:each="image: ${reservationObject?.getObjectImages()}">
+                        <div class="col-md-10">
+                            <input class="form-control"
+                                   name="images"
+                                   placeholder="Image URL"
+                                   th:value="${image}"
+                                   required>
+                        </div>
+                        <div class="col-md-1 col-lg-1 my-auto text-center">
+                            <button class="btn-round fa fa-minus" style="background-color: red" type="button" onclick="removeField(this)"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <select id="category" name="category" style="display: none;" required>
+                            <option th:selected="${reservationObject}==null" value="">Pick a category</option>
+                            <option th:each="category : ${T(com.hvt.booking_lux.model.enumeration.Category).values()}" th:value="${category}" th:text="${category}" th:selected="${reservationObject}!=null? ${reservationObject.category==category} :'false'">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12" th:if="${edit}==false">
+                    <div class="form-group">
+                        <select class="mt-1rem" id="city" name="cityId" style="display:none;">
+                            <option th:each="city : ${cities}" th:value="${city.getId()}" th:text="${city.getName()}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-top: 1rem">
+                        <input type="submit" value="Submit" class="btn primary-btn">
+                        <div class="submitting"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+
+    $(document).ready(function(){
+        moveNewInputButton()
+    })
+
+    function moveNewInputButton()
+    {
+        var div = document.createElement("div")
+        div.setAttribute("class","col-md-1 col-lg-1 my-auto text-center")
+        var button = document.createElement("button")
+        button.setAttribute("class","btn-round fa fa-plus")
+        button.setAttribute("onclick", "addNewField(this)")
+        button.setAttribute("type","button")
+        div.appendChild(button);
+        $("#imageParent > div")[$("#imageParent > div").length-1].appendChild(div)
+    }
+    function addNewField(plusBtn){
+        var inputField = '<div class="row pl-1 mb-3">\n' +
+            '                        <div class="col-md-10">\n' +
+            '                            <input class="form-control"\n' +
+            '                                   name="images"\n' +
+            '                                   placeholder="Image URL">\n' +
+            '                        </div>\n'  +
+            '<div class="col-md-1 col-lg-1 my-auto text-center">\n' +
+            '                            <button class="btn-round fa fa-minus" style="background-color: #ff0000" type="button" onclick="removeField(this)"></button>\n' +
+            '                        </div>' +
+            '                    </div>';
+        $('#imageParent').append(inputField);
+        $(plusBtn.parentNode).remove();
+        moveNewInputButton();
+    }
+    function removeField(removeButton){
+        var parent = removeButton.parentNode.parentNode.parentNode
+        let forRemove = removeButton.parentNode.parentNode
+        if(!$("#imageParent > div")[$("#imageParent > div").length-1].isEqualNode($("#imageParent > div")[0]))
+        {
+            if($("#imageParent > div")[$("#imageParent > div").length-1].isEqualNode(forRemove))
+            {
+                parent.removeChild(forRemove);
+                moveNewInputButton();
+            }
+            else
+            {
+                parent.removeChild(forRemove);
+            }
+        }
+
+    }
+</script>
