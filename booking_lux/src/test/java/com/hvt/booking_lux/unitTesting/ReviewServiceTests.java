@@ -84,9 +84,9 @@ public class ReviewServiceTests {
 
 
 
-    Review review = new Review(reservation1, "comment", user);
-    Review review1 = new Review(reservation2, "comment", user1);
-    Review review2 = new Review(reservation3, "comment", user1);
+    Review review = new Review(reservation1, "comment", user1);
+    Review review1 = new Review(reservation2, "comment", user);
+    Review review2 = new Review(reservation3, "comment", user);
 
 
     @BeforeEach
@@ -195,7 +195,16 @@ public class ReviewServiceTests {
 
     @Test
     void testCanUserWriteReview(){
-        Assertions.assertTrue(reviewService.canUserWriteReview(2L, "user@user.com"));
+        Reservation reservation = new Reservation(user1, units.get(0), units.get(0).getPrice(), 2,
+                ZonedDateTime.now().minusDays(10), ZonedDateTime.now().minusDays(8));
+        Mockito.when(reservationService.findReservationById(1L))
+                .thenReturn(reservation);
+        Assertions.assertTrue(reviewService.canUserWriteReview(1L, "user1@user.com"));
+    }
+
+    @Test
+    void testCanUserWriteReviewDenied(){
+        Assertions.assertFalse(reviewService.canUserWriteReview(2L, "user@user.com"));
     }
 
     @Test

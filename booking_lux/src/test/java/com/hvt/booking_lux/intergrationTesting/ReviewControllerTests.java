@@ -83,9 +83,9 @@ public class ReviewControllerTests {
     Reservation reservation3 = new Reservation(user, units.get(2), units.get(2).getPrice(), 1,
             ZonedDateTime.parse("2021-07-23T00:00:00+02:00"), ZonedDateTime.parse("2021-07-24T00:00:00+02:00"));
 
-    Review review = new Review(reservation1, "comment", user);
-    Review review1 = new Review(reservation2, "comment", user1);
-    Review review2 = new Review(reservation3, "comment", user1);
+    Review review = new Review(reservation1, "comment", user1);
+    Review review1 = new Review(reservation2, "comment", user);
+    Review review2 = new Review(reservation3, "comment", user);
 
     @BeforeEach
     void setUp(){
